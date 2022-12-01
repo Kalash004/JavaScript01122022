@@ -1,61 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Hra</title>
-</head>
-
-<body>
-    <section id="game">
-        <h1>Guess a number</h1>
-        <p>
-            We have selected a random number between 1 and 100. See if you can guess it in 10 turns or fewer.<br>
-            We'll tell
+    <head>
+        <meta charset="UTF-8">
+        <title>Hra</title>
+    </head>
+    <body>
+        <section id="game">
+            <h1>Guess a number</h1>
+            <p>
+                We have selected a random number between 1 and 100. See if you can guess it in 10 turns or fewer.
+                <br>
+                We'll tell
             you if your guess was too high or too low.
-        </p>
-        <label for="num_input">Enter a guess:</label> <br>
-        <input type="number" name="num_input" id="num_input">
-        <button id="num_btn">Submit Number</button> <br>
-        <label for="">Enter a modulo:</label><br>
-        <input type="number" name="num_modulo_input" id="num_modulo_input">
-        <button id="mod_btn">Submit Modulo</button>
-
-        <p>Recent Modulos :</p>
-        <p id="recent_mod"></p>
-
-
-        <section id="win">
-            <p id="correct">You Won, number was :</p>
-            <p id="win_num"></p>
+            </p>
+            <label for="num_input">Enter a guess:</label>
+            <br>
+            <input type="number" name="num_input" id="num_input">
+            <button id="num_btn">Submit Number</button>
+            <br>
+            <label for="">Enter a modulo:</label>
+            <br>
+            <input type="number" name="num_modulo_input" id="num_modulo_input">
+            <button id="mod_btn">Submit Modulo</button>
+            <p>Recent Modulos :</p>
+            <p id="recent_mod"></p>
+            <section id="win">
+                <p id="correct">You Won, number was :</p>
+                <p id="win_num"></p>
+            </section>
+            <section id="lost">
+                <p id="incorrect">You lost, number was:</p>
+                <p id="lost_num"></p>
+            </section>
+            <button id="restart">Restart the game</button>
         </section>
-        <section id="lost">
-            <p id="incorrect">You lost, number was: </p>
-            <p id="lost_num"></p>
+        <section id="images">
+            <H1>How to solve ?</H1>
+            <p>Here i show how to find the number using 2 modulos and a simple algorithm</p>
+            <h3>Algorithm</h3>
+            <img src="images/algorithm.png" alt="algorithm"> <br>
+            <h3>Getting modulo 1</h3>
+            <img src="images/modulo1.png" alt=""> <br>
+            <h3>Getting modulo 2</h3>
+            <img src="images/modulo2.png" alt=""> <br>
+            <h3>Itterating thru modulo 1</h3>
+            <img src="images/wolf1.png" alt=""> <br>
+            <img src="images/wolf1-2.png" alt=""> <br>
+            <h3>Itterating thru modulo 2</h3>
+            <img src="images/wolf2.png" alt=""> <br>
+            <img src="images/wolf2-2.png" alt=""> <br>
+            <h3>Win</h3>
+            <img src="images/win.png" alt=""> <br>
         </section>
-    </section>
-    <script>
+
+        <script>
         // script
         const guess_input = document.getElementById("num_input");
         const modulo_input = document.getElementById("num_modulo_input");
         const num_btn = document.getElementById("num_btn");
         const mod_btn = document.getElementById("mod_btn");
+        const restart_btn = document.getElementById("restart");
         const win = document.getElementById("win");
         const lost = document.getElementById("lost");
+        const imgs = document.getElementById("images");
         const max_num = 1001;
         const max_mod = 100;
         const generator = 100
 
+        let number_for_guess;
+        game();
+        
 
-        let number_for_guess = Math.floor(Math.random() * 1001);
-
-        win.style.display = "none";
-        lost.style.display = "none";
-
-        function game() {
-
+        restart_btn.onclick = function () {
+            game();
         }
-
+        
         mod_btn.onclick = function () {
             let x = modulo_input.value;
             if (x <= max_mod) {
@@ -67,15 +86,16 @@
                 alert("Modular number cant be higher than " + max_mod);
             }
         }
-
+        
         num_btn.onclick = function () {
             let x = guess_input.value;
             if (x <= max_num) {
-
+                
                 console.log(x);
                 if (x != number_for_guess) {
                     document.getElementById("lost_num").innerHTML = number_for_guess;
                     lost.style.display = "block";
+                    imgs.style.display = "block";
                 } else {
                     document.getElementById("win_num").innerHTML = number_for_guess;
                     win.style.display = "block";
@@ -84,18 +104,17 @@
                 alert("Number cant be higher than " + max_num);
             }
         }
-
-
-    </script>
-    <style>
-        #win {
-            display: block;
+        
+        function game() {
+            number_for_guess = Math.floor(Math.random() * 1001);
+            win.style.display = "none";
+            lost.style.display = "none";
+            modulo_input.value = "";
+            guess_input.value = "";
+            document.getElementById("recent_mod").innerHTML = "";
+            imgs.style.display = "none";
         }
-
-        #lost {
-            display: block;
-        }
-    </style>
-</body>
-
+        </script>
+        </style>
+    </body>
 </html>
