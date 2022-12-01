@@ -43,19 +43,26 @@
         const win = document.getElementById("win");
         const lost = document.getElementById("lost");
         const max_num = 1001;
-        const max_mod = 99;
+        const max_mod = 100;
+        const generator = 100
+
 
         let number_for_guess = Math.floor(Math.random() * 1001);
 
         win.style.display = "none";
         lost.style.display = "none";
 
+        function game() {
+
+        }
+
         mod_btn.onclick = function () {
             let x = modulo_input.value;
             if (x <= max_mod) {
                 let mod = number_for_guess % x;
                 let recent = document.getElementById("recent_mod");
-                recent.innerHTML = recent.innerHTML + " " + mod;
+                modulo_input.value = "";
+                recent.innerHTML = recent.innerHTML + " " + x + ":"+ mod;
             } else {
                 alert("Modular number cant be higher than " + max_mod);
             }
