@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hra</title>
+</head>
+
+<body>
+    <section id="game">
+        <h1>Guess a number</h1>
+        <p>
+            We have selected a random number between 1 and 100. See if you can guess it in 10 turns or fewer.<br>
+            We'll tell
+            you if your guess was too high or too low.
+        </p>
+        <label for="num_input">Enter a guess:</label> <br>
+        <input type="number" name="num_input" id="num_input">
+        <button id="num_btn">Submit Number</button> <br>
+        <label for="">Enter a modulo:</label><br>
+        <input type="number" name="num_modulo_input" id="num_modulo_input">
+        <button id="mod_btn">Submit Modulo</button>
+
+        <p>Recent Modulos :</p>
+        <p id="recent_mod"></p>
+
+
+        <section id="win">
+            <p id="correct">You Won, number was :</p>
+            <p id="win_num"></p>
+        </section>
+        <section id="lost">
+            <p id="incorrect">You lost, number was: </p>
+            <p id="lost_num"></p>
+        </section>
+    </section>
+    <script>
+        // script
+        const guess_input = document.getElementById("num_input");
+        const modulo_input = document.getElementById("num_modulo_input");
+        const num_btn = document.getElementById("num_btn");
+        const mod_btn = document.getElementById("mod_btn");
+        const win = document.getElementById("win");
+        const lost = document.getElementById("lost");
+        const max_num = 1001;
+        const max_mod = 99;
+
+        let number_for_guess = Math.floor(Math.random() * 1001);
+
+        win.style.display = "none";
+        lost.style.display = "none";
+
+        mod_btn.onclick = function () {
+            let x = modulo_input.value;
+            if (x <= max_mod) {
+                let mod = number_for_guess % x;
+                let recent = document.getElementById("recent_mod");
+                recent.innerHTML = recent.innerHTML + " " + mod;
+            } else {
+                alert("Modular number cant be higher than " + max_mod);
+            }
+        }
+
+        num_btn.onclick = function () {
+            let x = guess_input.value;
+            if (x <= max_num) {
+
+                console.log(x);
+                if (x != number_for_guess) {
+                    document.getElementById("lost_num").innerHTML = number_for_guess;
+                    lost.style.display = "block";
+                } else {
+                    document.getElementById("win_num").innerHTML = number_for_guess;
+                    win.style.display = "block";
+                }
+            } else {
+                alert("Number cant be higher than " + max_num);
+            }
+        }
+
+
+    </script>
+    <style>
+        #win {
+            display: block;
+        }
+
+        #lost {
+            display: block;
+        }
+    </style>
+</body>
+
+</html>
